@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sly.medicineshop.business.storage.mapper.GoodsMapper">
+    <!--新增商品-->
+    <insert id="add" parameterType="com.sly.medicineshop.business.storage.model.Goods">
+        INSERT INTO `G_GOODS` (`pid`,`name`,`type`,`status`)
+        VALUES (#{pid},#{name},#{type},#{status})
+    </insert>
+
+    <!--删除商品-->
+    <update id="delete" parameterType="int">
+        UPDATE `G_GOODS` SET `status`=1 WHERE `id`=#{id}
+    </update>
+
+    <!--修改商品-->
+    <update id="update" parameterType="com.sly.medicineshop.business.storage.model.Goods">
+        UPDATE `G_GOODS` SET `name`=#{name} WHERE `id`=#{id}
+    </update>
+
+    <!--查询商品列表-->
+    <select id="findGoodsList" parameterType="com.sly.medicineshop.business.storage.model.Goods"
+            resultType="com.sly.medicineshop.business.storage.model.Goods">
+        SELECT
+            *
+        FROM `G_GOODS` GD
+        <where>
+            GD.`shop_id`=#{goods.shopId}
+            <if test="goods.name != null and goods.name !=''">
+                AND GD.`name` LIKE CONCAT('%',#{goods.name},'%')
+            </if>
+            <if test="goods.goodsNumber != null and goods.goodsNumber != ''">
+                AND GD.`goods_number` LIKE CONCAT('%',#{goods.goodsNumber},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--查询商品信息-->
+    <select id="findGoodsById" parameterType="int" resultType="com.sly.medicineshop.business.storage.model.Goods">
+        SELECT * FROM `G_GOODS` GD WHERE GD.`id`=#{id}
+    </select>
+
+
+</mapper>

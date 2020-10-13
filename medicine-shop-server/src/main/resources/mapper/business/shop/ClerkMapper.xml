@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sly.medicineshop.business.shop.mapper.ClerkMapper">
+    <!--新增店员-->
+    <insert id="add" parameterType="com.sly.medicineshop.business.shop.model.Clerk">
+        INSERT INTO `S_CLERK` (`account`,`password`,`name`,`phone`,`email`,`shop_id`,`status`)
+        VALUES (#{account},#{password},#{name},#{phone},#{email},#{shopId},1)
+    </insert>
+
+    <!--删除店员-->
+    <update id="delete" parameterType="int">
+        UPDATE `S_CLERK` SET `status`=0 WHERE `id`=#{id}
+    </update>
+
+    <!--修改店员-->
+    <update id="update" parameterType="com.sly.medicineshop.business.shop.model.Clerk">
+        UPDATE `S_CLERK` SET `name`=#{name},`phone`=#{phone},`email`=#{email} WHERE `id`=#{id}
+    </update>
+
+    <!--查询店员列表-->
+    <select id="findClerkList" parameterType="com.sly.medicineshop.business.shop.model.Clerk"
+            resultType="com.sly.medicineshop.business.shop.model.Clerk">
+        SELECT
+            *
+        FROM `S_CLERK` SC
+        <where>
+            SC.`status`=1
+            <if test="clerk.name != null and clerk.name != ''">
+                AND SC.`name` LIKE CONCAT('%',#{clerk.name},'%')
+            </if>
+            <if test="clerk.phone != null and clerk.phone != ''">
+                AND SC.`phone` LIKE CONCAT('%',#{clerk.phone},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--查询店员信息-->
+    <select id="findClerkById" parameterType="int" resultType="com.sly.medicineshop.business.shop.model.Clerk">
+        SELECT * FROM `S_CLERK` SC WHERE SC.`id`=#{id}
+    </select>
+
+    <!--根据账号店员查询信息-->
+    <select id="findByAccount" parameterType="string" resultType="com.sly.medicineshop.business.shop.model.Clerk">
+        SELECT * FROM `S_CLERK` SC WHERE SC.`account`=#{account}
+    </select>
+
+</mapper>

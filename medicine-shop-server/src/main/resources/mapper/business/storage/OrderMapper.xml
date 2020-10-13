@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sly.medicineshop.business.storage.mapper.OrderMapper">
+
+    <!--新增订单-->
+    <insert id="add" parameterType="com.sly.medicineshop.business.storage.model.Order">
+        INSERT INTO `G_ORDER`
+            (`order_number`,`clerk_id`,`shop_id`,`order_time`,`order_price`,`discount_amount`,`original_price`,`status`)
+        VALUES
+            (#{orderNumber},#{clerkId},#{shopId},#{orderTime},#{orderPrice},#{discountAmount},#{originalPrice},#{status});
+    </insert>
+
+    <!--删除订单-->
+    <update id="delete" parameterType="int">
+        UPDATE `G_ORDER` SET `status`=0 WHERE `id`=#{id}
+    </update>
+
+    <!--修改订单-->
+    <update id="update" parameterType="com.sly.medicineshop.business.storage.model.Order">
+        UPDATE `G_ORDER`
+        SET `order_price`=#{orderPrice},`discount_amount`=#{discountAmount},`original_price`=#{originalPrice}
+        WHERE `id`=#{id}
+    </update>
+
+    <!--查询订单列表-->
+    <select id="findOrderList" parameterType="com.sly.medicineshop.business.storage.model.Order"
+            resultType="com.sly.medicineshop.business.storage.model.Order">
+        SELECT
+            *
+        FROM `G_ORDER` GO
+        <where>
+            GO.`shop_id`=#{order.shopId}
+            AND GO.`status`=1
+            <if test="order.orderNumber != null and order.orderNumber != ''">
+                AND GO.`order_number` LIKE CONCAT('%',#{order.orderNumber},'%')
+            </if>
+            <if test="order.orderTimeStart != null and order.orderTimeStart != ''">
+                AND UNIX_TIMESTAMP(GO.`order_time`) &gt;= UNIX_TIMESTAMP(#{order.orderTimeStart})
+            </if>
+            <if test="order.orderTimeEnd != null and order.orderTimeEnd != ''">
+                AND UNIX_TIMESTAMP(GO.`order_time`) &lt;= UNIX_TIMESTAMP(#{order.orderTimeEnd})
+            </if>
+        </where>
+    </select>
+
+    <!--查询订单详情-->
+    <select id="findOrderById" parameterType="int" resultType="com.sly.medicineshop.business.storage.model.Order">
+        SELECT * FROM `G_ORDER` GO WHERE GO.`id`=#{id}
+    </select>
+</mapper>

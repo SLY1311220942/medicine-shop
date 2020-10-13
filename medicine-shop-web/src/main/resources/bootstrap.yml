@@ -1,0 +1,40 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+  application:
+    name: medicine-shop-web
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.100.101:8848
+        prefix: medicine-shop-web
+        group: medicine-shop
+        file-extension: yaml
+        namespace: 9b105fb7-2617-4bba-802b-801a65baba90
+        enable-remote-sync-config: true
+      discovery:
+        server-addr: 192.168.100.101:8848
+        group: medicine-shop
+        namespace: 9b105fb7-2617-4bba-802b-801a65baba90
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://192.168.100.101:8848?namespace=9b105fb7-2617-4bba-802b-801a65baba90&group=medicine-shop
+  application:
+    name: medicine-shop-web
+  scan:
+    base-packages: com.sly.medicineshop.bussiness.storage.service
+  consumer:
+    check: false
+
+logging:
+  level:
+    com:
+      alibaba:
+        nacos:
+          client: warn
