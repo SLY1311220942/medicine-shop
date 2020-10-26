@@ -1,13 +1,10 @@
 package com.sly.medicineshop;
 
 
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sly.medicineshop.business.shop.model.Clerk;
 import com.sly.medicineshop.util.StorageConvertUtils;
 import com.sly.medicineshop.util.StorageUnit;
-import org.apache.http.HttpClientConnection;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -15,9 +12,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-import javax.sound.midi.Soundbank;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 
 public class MedicineShopServerApplicationTests {

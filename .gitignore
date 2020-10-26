@@ -1,0 +1,13 @@
+/.idea/
+/medicine-shop.iml
+/medicine-shop-base/target/classes/com/sly/medicineshop/
+/medicine-shop-server/mvnw
+/medicine-shop-server/mvnw.cmd
+/medicine-shop-web/mvnw
+/medicine-shop-web/mvnw.cmd
+/medicine-shop-web/.mvn/wrapper/
+/medicine-shop-service-api/target/classes/META-INF/
+/medicine-shop-service-api/target/classes/com/sly/medicineshop/
+/medicine-shop-server/.mvn/wrapper/
+/medicine-shop-server/.gitignore
+/medicine-shop-web/.gitignore
