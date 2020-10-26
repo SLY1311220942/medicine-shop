@@ -1,10 +1,8 @@
 package com.sly.medicineshop.business.storage.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sly.medicineshop.business.storage.model.Order;
 import com.sly.medicineshop.config.mybatis.TablePartition;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,17 +22,20 @@ public interface OrderMapper {
      * @author SLY
      * @date 2020/10/7
      */
+    @TablePartition("order.shopId")
     int add(Order order);
 
     /**
      * 删除订单
      *
      * @param id 订单ID
+     * @param shopId 店铺ID
      * @return int
      * @author SLY
      * @date 2020/10/7
      */
-    int delete(String id);
+    @TablePartition("shopId")
+    int delete(@Param("id") String id, @Param("shopId") String shopId);
 
     /**
      * 修改订单
@@ -62,9 +63,11 @@ public interface OrderMapper {
      * 查询订单详情
      *
      * @param id 订单ID
+     * @param shopId 店铺ID
      * @return com.sly.medicineshop.business.storage.model.Order
      * @author SLY
      * @date 2020/10/7
      */
-    Order findOrderById(Integer id);
+    @TablePartition("shopId")
+    Order findOrderById(@Param("id") String id, @Param("shopId") String shopId);
 }
