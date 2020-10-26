@@ -80,8 +80,6 @@ public class StorageConvertUtils {
         BigDecimal countMiniUnit2 = convertToMinUnit(count2, unit);
         if (countMiniUnit1.compareTo(countMiniUnit2) < 0) {
             throw new RuntimeException("库存不足！");
-        } else if (countMiniUnit1.compareTo(countMiniUnit2) == 0) {
-            return "";
         } else {
             List<StorageUnit> unitCountList1 = getUnitCountList(count1, unit);
             List<StorageUnit> unitCountList2 = getUnitCountList(count2, unit);

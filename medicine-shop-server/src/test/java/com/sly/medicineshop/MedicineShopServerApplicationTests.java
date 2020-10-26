@@ -46,7 +46,7 @@ public class MedicineShopServerApplicationTests {
         StorageUnit unit3 = new StorageUnit("中盒", new BigDecimal("3"), unit2);
         StorageUnit unit = new StorageUnit("大盒", unit3);
 
-        String addition = StorageConvertUtils.subtraction("大盒:4,小盒:3,袋:10", "大盒:2,中盒:5,小盒:2,袋:15", unit);
+        String addition = StorageConvertUtils.subtraction("大盒:4,中盒:5,小盒:2,袋:20", "大盒:4,中盒:5,小盒:2,袋:10", unit);
         System.out.println(addition);
     }
 
